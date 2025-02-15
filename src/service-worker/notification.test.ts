@@ -12,6 +12,7 @@ const mockChrome = {
             addListener: vi.fn(),
         },
         create: vi.fn(),
+        clear: vi.fn(),
     },
     tabs: {
         create: vi.fn(),
