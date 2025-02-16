@@ -94,6 +94,13 @@ describe('show', () => {
 });
 
 describe('showBuild', () => {
+    beforeEach(() => {
+        mockChrome.notifications.clear.mockImplementation(
+            (_id: string, callback: (wasCleared: boolean) => void) => {
+                callback(true);
+            },
+        );
+    });
     it('shows notification for build', async () => {
         await notification.showBuild(
             'serviceName',

@@ -56,11 +56,12 @@ const showBuild = async (serviceName: string, build: CIBuild, text: string) => {
         ? `${serviceName}_${build.group}_${build.id}`
         : `${serviceName}_${build.id}`;
     if (visibleNotifications.has(buildId)) {
-        chrome.notifications.clear(buildId, wasCleared => {
-            if (wasCleared) {
-                visibleNotifications.delete(buildId);
-            }
+        const wasCleared = await new Promise(resolve => {
+            chrome.notifications.clear(buildId, resolve);
         });
+        if (wasCleared) {
+            visibleNotifications.delete(buildId);
+        }
     }
     await show({
         serviceName,
